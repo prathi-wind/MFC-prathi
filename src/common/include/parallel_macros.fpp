@@ -199,7 +199,6 @@
     $:use_device_val
 #:enddef
 
-
 #:def GPU_PARALLEL_LOOP(collapse=None, private=None, parallelism='[gang, vector]', &
     & default='present', firstprivate=None, reduction=None, reductionOp=None, &
     & copy=None, copyin=None, copyinReadOnly=None, copyout=None, create=None, &
@@ -229,7 +228,7 @@
     $:acc_directive
 #:enddef
 
-#:def GPU_ROUTINE(function_name=None, parallelism=None, nohost=False, cray_inline=False, extraAccArgs=None)
+#:def GPU_ROUTINE(function_header=None, function_name=None, parallelism=None, nohost=False, cray_inline=False, extraAccArgs=None)
     #:assert isinstance(cray_inline, bool)
     #:set parallelism_val = GEN_PARALLELISM_STR(parallelism)
     #:assert isinstance(nohost, bool)
@@ -238,21 +237,37 @@
     #:else
         #:set nohost_val = ''
     #:endif
+    #:if function_header is not None
+        #:set func_regex = re.compile(r'(?i)(?:subroutine|function)[\s]*(?-i:)(?P<func_name>[A-Za-z]+[_A-Za-z0-9]*)[\s]*[\(|\n]')
+        #:set matches = re.search(func_regex, function_header)
+        #:if function_name is not None
+            #:set function_name = matches.group('func_name')
+        #:else
+            #:assert function_name == matches.group('func_name')
+        #:endif
+    #:endif
     #:set extraAccArgs_val = GEN_EXTRA_ARGS_STR(extraAccArgs)
     #:set clause_val = parallelism_val.strip('\n') + nohost_val.strip('\n')
-    #:set acc_directive = '!$acc routine ' + &
-        & clause_val + extraAccArgs_val.strip('\n')
+    #:if function_name is not None
+        #:set acc_directive = '!$acc routine(' + function_name + ') ' + &
+            & clause_val + extraAccArgs_val.strip('\n')
+    #:else
+        #:set acc_directive = '!$acc routine ' + &
+            & clause_val + extraAccArgs_val.strip('\n')
+    #:endif
     #:if cray_inline == True
         #:if not isinstance(function_name, str)
             #:stop "When inlining for Cray Compiler, function name must be given and given as a string"
         #:endif
         #:set cray_directive = ('!DIR$ INLINEALWAYS ' + function_name).strip('\n')
+        $:function_header
 #ifdef _CRAYFTN
         $:cray_directive
 #else
         $:acc_directive
 #endif
     #:else
+        $:function_header
         $:acc_directive
     #:endif
 #:enddef
@@ -280,7 +295,7 @@
     #:if data_dependency is not None
         #:assert isinstance(data_dependency, str)
         #:assert (data_dependency == 'auto' or data_dependency == 'independent')
-        #:set data_dependency_val = data_dependency 
+        #:set data_dependency_val = data_dependency
     #:else
         #:set data_dependency_val = ''
     #:endif
@@ -313,7 +328,7 @@
     #:set extraAccArgs_val = GEN_EXTRA_ARGS_STR(extraAccArgs)
     #:set clause_val = copy_val.strip('\n') + copyin_val.strip('\n') + &
         & copyout_val.strip('\n') + create_val.strip('\n') + &
-        & no_create_val.strip('\n') + present_val.strip('\n') + & 
+        & no_create_val.strip('\n') + present_val.strip('\n') + &
         & deviceptr_val.strip('\n') + attach_val.strip('\n') + &
         & default_val.strip('\n')
     #:set acc_directive = '!$acc data ' + clause_val + extraAccArgs_val.strip('\n')
