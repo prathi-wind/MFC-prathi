@@ -263,6 +263,7 @@ contains
                 end do
 
             end do
+        #:endcall GPU_DATA
 
 #else
             Nfq = 3
@@ -294,7 +295,6 @@ contains
                 end do
             end do
 #endif
-        #:endcall GPU_DATA
     end subroutine s_apply_fourier_filter
 
     !>  The purpose of this subroutine is to destroy the fftw plan
