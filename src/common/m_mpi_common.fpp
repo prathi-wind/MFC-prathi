@@ -667,7 +667,7 @@ contains
         #:for mpi_dir in [1, 2, 3]
             if (mpi_dir == ${mpi_dir}$) then
                 #:if mpi_dir == 1
-                    $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                    #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                     do l = 0, p
                         do k = 0, n
                             do j = 0, buff_size - 1
@@ -678,9 +678,10 @@ contains
                             end do
                         end do
                     end do
+                    #:endcall GPU_PARALLEL_LOOP
 
                     if (qbmm_comm) then
-                        $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                         do l = 0, p
                             do k = 0, n
                                 do j = 0, buff_size - 1
@@ -694,8 +695,9 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
 
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do l = 0, p
                             do k = 0, n
                                 do j = 0, buff_size - 1
@@ -709,9 +711,10 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
                     end if
                 #:elif mpi_dir == 2
-                    $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                    #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                     do i = 1, nVar
                         do l = 0, p
                             do k = 0, buff_size - 1
@@ -724,9 +727,10 @@ contains
                             end do
                         end do
                     end do
+                    #:endcall GPU_PARALLEL_LOOP
 
                     if (qbmm_comm) then
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = 0, p
                                 do k = 0, buff_size - 1
@@ -741,8 +745,9 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
 
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = 0, p
                                 do k = 0, buff_size - 1
@@ -757,9 +762,10 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
                     end if
                 #:else
-                    $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                    #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                     do i = 1, nVar
                         do l = 0, buff_size - 1
                             do k = -buff_size, n + buff_size
@@ -772,9 +778,10 @@ contains
                             end do
                         end do
                     end do
+                    #:endcall GPU_PARALLEL_LOOP
 
                     if (qbmm_comm) then
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = 0, buff_size - 1
                                 do k = -buff_size, n + buff_size
@@ -789,8 +796,9 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
 
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = 0, buff_size - 1
                                 do k = -buff_size, n + buff_size
@@ -805,6 +813,7 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
                     end if
                 #:endif
             end if
@@ -859,7 +868,7 @@ contains
         #:for mpi_dir in [1, 2, 3]
             if (mpi_dir == ${mpi_dir}$) then
                 #:if mpi_dir == 1
-                    $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                    #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                     do l = 0, p
                         do k = 0, n
                             do j = -buff_size, -1
@@ -877,9 +886,10 @@ contains
                             end do
                         end do
                     end do
+                    #:endcall GPU_PARALLEL_LOOP
 
                     if (qbmm_comm) then
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do l = 0, p
                             do k = 0, n
                                 do j = -buff_size, -1
@@ -893,8 +903,9 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
 
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do l = 0, p
                             do k = 0, n
                                 do j = -buff_size, -1
@@ -908,9 +919,10 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
                     end if
                 #:elif mpi_dir == 2
-                    $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                    #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                     do i = 1, nVar
                         do l = 0, p
                             do k = -buff_size, -1
@@ -929,9 +941,10 @@ contains
                             end do
                         end do
                     end do
+                    #:endcall GPU_PARALLEL_LOOP
 
                     if (qbmm_comm) then
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = 0, p
                                 do k = -buff_size, -1
@@ -946,8 +959,9 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
 
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = 0, p
                                 do k = -buff_size, -1
@@ -962,10 +976,11 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
                     end if
                 #:else
                     ! Unpacking buffer from bc_z%beg
-                    $:GPU_PARALLEL_LOOP(collapse=4,private='[r]')
+                    #:call GPU_PARALLEL_LOOP(collapse=4,private='[r]')
                     do i = 1, nVar
                         do l = -buff_size, -1
                             do k = -buff_size, n + buff_size
@@ -985,9 +1000,10 @@ contains
                             end do
                         end do
                     end do
+                    #:endcall GPU_PARALLEL_LOOP
 
                     if (qbmm_comm) then
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = -buff_size, -1
                                 do k = -buff_size, n + buff_size
@@ -1003,8 +1019,9 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
 
-                        $:GPU_PARALLEL_LOOP(collapse=5,private='[r]')
+                        #:call GPU_PARALLEL_LOOP(collapse=5,private='[r]')
                         do i = nVar + 1, nVar + 4
                             do l = -buff_size, -1
                                 do k = -buff_size, n + buff_size
@@ -1020,6 +1037,7 @@ contains
                                 end do
                             end do
                         end do
+                        #:endcall GPU_PARALLEL_LOOP
                     end if
                 #:endif
             end if
