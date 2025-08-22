@@ -419,7 +419,7 @@ contains
         real(wp), dimension(num_fluids) :: alpha_rho_L, alpha_rho_R
 #:endif
 
-        #:call GPU_PARALLEL_LOOP(collapse=3, private='[F_L, vel_L, alpha_rho_L, F_R, vel_R, alpha_rho_R, rho_L, rho_R, i, t, tmp2_m_j, tmp2_m_jp1, tmp2_e_j, tmp2_e_jp1]')
+        #:call GPU_PARALLEL_LOOP(collapse=3, private='[F_L, vel_L, alpha_rho_L, F_R, vel_R, alpha_rho_R, rho_L, rho_R, i, t, j, tmp2_m_j, tmp2_m_jp1, tmp2_e_j, tmp2_e_jp1]')
             do l = 0, p
                 do k = 0, n
                     do j2 = -1, m, 2
@@ -533,7 +533,7 @@ contains
 
         if (idir == 1) then
             if (p == 0) then
-                #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
+                #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, j, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
                     do l = 0, p
                         do k = 0, n
                             do j2 = -1, m, 2
@@ -1020,7 +1020,7 @@ contains
                 #:endcall GPU_PARALLEL_LOOP
             else
                 #:if not MFC_CASE_OPTIMIZATION or num_dims > 2
-                    #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_momxbp2_j, tmp2_momxbp2_jp1,tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
+                    #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, j, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_momxbp2_j, tmp2_momxbp2_jp1,tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
                         do l = 0, p
                             do k = 0, n
                                 do j2 = -1, m, 2
@@ -1613,7 +1613,7 @@ contains
             end if
         else if (idir == 2) then
             if (p == 0) then
-                #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
+                #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, k, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
                     do l = 0, p
                         do k2 = -1, n, 2
                             do j = 0, m
@@ -2081,7 +2081,7 @@ contains
                 #:endcall GPU_PARALLEL_LOOP
             else
                 #:if not MFC_CASE_OPTIMIZATION or num_dims > 2
-                    #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_momxbp2_j, tmp2_momxbp2_jp1,tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
+                    #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, k, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_momxbp2_j, tmp2_momxbp2_jp1,tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
                         do l = 0, p
                             do k2 = -1, n, 2
                                 do j = 0, m
@@ -2643,7 +2643,7 @@ contains
             end if
         elseif (idir == 3) then
             #:if not MFC_CASE_OPTIMIZATION or num_dims > 2
-                #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_momxbp2_j, tmp2_momxbp2_jp1,tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
+                #:call GPU_PARALLEL_LOOP(collapse=3, private='[rho_L, rho_R, gamma_L, gamma_R, pi_inf_L, pi_inf_R, mu_L, mu_R, vel_L, vel_R, pres_L, pres_R, alpha_L, alpha_R, alpha_rho_L, alpha_rho_R, F_L, F_R, E_L, E_R, cfl, dvel_small, rho_sf_small, vflux_L_arr, vflux_R_arr, i, t, l, tmp2_e_j, tmp2_e_jp1, tmp2_momxb_j, tmp2_momxb_jp1, tmp2_momxbp1_j, tmp2_momxbp1_jp1, tmp2_momxbp2_j, tmp2_momxbp2_jp1,tmp2_rho_j, tmp2_rho_jp1, tmp2_adv_j, tmp2_adv_jp1]')
                     do l2 = -1, p, 2
                         do k = 0, n
                             do j = 0, m
