@@ -162,6 +162,8 @@ contains
 
     subroutine s_initialize_igr_module()
 
+        integer(kind=8) :: i 
+
         if (viscous) then
             @:ALLOCATE(Res_igr(1:2, 1:maxval(Re_size)))
             do i = 1, 2
@@ -309,6 +311,7 @@ contains
         real(wp) :: rho_rx, rho_ry, rho_rz, rho_lx, rho_ly, rho_lz
         real(wp) :: fd_coeff
         integer :: num_iters
+        integer(kind=8) :: i
 
         if (t_step == t_step_start) then
             num_iters = num_igr_warm_start_iters
@@ -551,12 +554,12 @@ contains
 
                                 $:GPU_LOOP(parallelism='[seq]')
                                 do t = 0, 1
-                                    tmp2_E_j(t + 1, i) = 0._stp 
-                                    tmp2_E_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxb_j(t + 1, i) = 0._stp 
-                                    tmp2_momxb_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxbp1_j(t + 1, i) = 0._stp 
-                                    tmp2_momxbp1_jp1(t + 1, i) = 0._stp
+                                    tmp2_E_j(t + 1) = 0._stp 
+                                    tmp2_E_jp1(t + 1) = 0._stp
+                                    tmp2_momxb_j(t + 1) = 0._stp 
+                                    tmp2_momxb_jp1(t + 1) = 0._stp
+                                    tmp2_momxbp1_j(t + 1) = 0._stp 
+                                    tmp2_momxbp1_jp1(t + 1) = 0._stp
                                 end do
 
                                 $:GPU_LOOP(parallelism='[seq]')
@@ -1038,14 +1041,14 @@ contains
 
                                     $:GPU_LOOP(parallelism='[seq]')
                                     do t = 0, 1
-                                        tmp2_E_j(t + 1, i) = 0._stp 
-                                        tmp2_E_jp1(t + 1, i) = 0._stp
-                                        tmp2_momxb_j(t + 1, i) = 0._stp 
-                                        tmp2_momxb_jp1(t + 1, i) = 0._stp
-                                        tmp2_momxbp1_j(t + 1, i) = 0._stp 
-                                        tmp2_momxbp1_jp1(t + 1, i) = 0._stp
-                                        tmp2_momxbp2_j(t + 1, i) = 0._stp 
-                                        tmp2_momxbp2_jp1(t + 1, i) = 0._stp
+                                        tmp2_E_j(t + 1) = 0._stp 
+                                        tmp2_E_jp1(t + 1) = 0._stp
+                                        tmp2_momxb_j(t + 1) = 0._stp 
+                                        tmp2_momxb_jp1(t + 1) = 0._stp
+                                        tmp2_momxbp1_j(t + 1) = 0._stp 
+                                        tmp2_momxbp1_jp1(t + 1) = 0._stp
+                                        tmp2_momxbp2_j(t + 1) = 0._stp 
+                                        tmp2_momxbp2_jp1(t + 1) = 0._stp
                                     end do
 
                                     $:GPU_LOOP(parallelism='[seq]')
@@ -1631,12 +1634,12 @@ contains
 
                                 $:GPU_LOOP(parallelism='[seq]')
                                 do t = 0, 1
-                                    tmp2_E_j(t + 1, i) = 0._stp 
-                                    tmp2_E_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxb_j(t + 1, i) = 0._stp 
-                                    tmp2_momxb_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxbp1_j(t + 1, i) = 0._stp 
-                                    tmp2_momxbp1_jp1(t + 1, i) = 0._stp
+                                    tmp2_E_j(t + 1) = 0._stp 
+                                    tmp2_E_jp1(t + 1) = 0._stp
+                                    tmp2_momxb_j(t + 1) = 0._stp 
+                                    tmp2_momxb_jp1(t + 1) = 0._stp
+                                    tmp2_momxbp1_j(t + 1) = 0._stp 
+                                    tmp2_momxbp1_jp1(t + 1) = 0._stp
                                 end do
 
                                 $:GPU_LOOP(parallelism='[seq]')
@@ -2099,14 +2102,14 @@ contains
 
                                     $:GPU_LOOP(parallelism='[seq]')
                                     do t = 0, 1
-                                        tmp2_E_j(t + 1, i) = 0._stp 
-                                        tmp2_E_jp1(t + 1, i) = 0._stp
-                                        tmp2_momxb_j(t + 1, i) = 0._stp 
-                                        tmp2_momxb_jp1(t + 1, i) = 0._stp
-                                        tmp2_momxbp1_j(t + 1, i) = 0._stp 
-                                        tmp2_momxbp1_jp1(t + 1, i) = 0._stp
-                                        tmp2_momxbp2_j(t + 1, i) = 0._stp 
-                                        tmp2_momxbp2_jp1(t + 1, i) = 0._stp
+                                        tmp2_E_j(t + 1) = 0._stp 
+                                        tmp2_E_jp1(t + 1) = 0._stp
+                                        tmp2_momxb_j(t + 1) = 0._stp 
+                                        tmp2_momxb_jp1(t + 1) = 0._stp
+                                        tmp2_momxbp1_j(t + 1) = 0._stp 
+                                        tmp2_momxbp1_jp1(t + 1) = 0._stp
+                                        tmp2_momxbp2_j(t + 1) = 0._stp 
+                                        tmp2_momxbp2_jp1(t + 1) = 0._stp
                                     end do
 
                                     $:GPU_LOOP(parallelism='[seq]')
@@ -2661,14 +2664,14 @@ contains
 
                                 $:GPU_LOOP(parallelism='[seq]')
                                 do t = 0, 1
-                                    tmp2_E_j(t + 1, i) = 0._stp 
-                                    tmp2_E_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxb_j(t + 1, i) = 0._stp 
-                                    tmp2_momxb_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxbp1_j(t + 1, i) = 0._stp 
-                                    tmp2_momxbp1_jp1(t + 1, i) = 0._stp
-                                    tmp2_momxbp2_j(t + 1, i) = 0._stp 
-                                    tmp2_momxbp2_jp1(t + 1, i) = 0._stp
+                                    tmp2_E_j(t + 1) = 0._stp 
+                                    tmp2_E_jp1(t + 1) = 0._stp
+                                    tmp2_momxb_j(t + 1) = 0._stp 
+                                    tmp2_momxb_jp1(t + 1) = 0._stp
+                                    tmp2_momxbp1_j(t + 1) = 0._stp 
+                                    tmp2_momxbp1_jp1(t + 1) = 0._stp
+                                    tmp2_momxbp2_j(t + 1) = 0._stp 
+                                    tmp2_momxbp2_jp1(t + 1) = 0._stp
                                 end do
 
                                 $:GPU_LOOP(parallelism='[seq]')
@@ -3262,6 +3265,8 @@ contains
             intent(inout) :: q_cons_vf, flux_vf, rhs_vf
 
         integer, intent(in) :: idir
+
+        integer(kind=8) :: i
 
         if (idir == 1) then
             #:call GPU_PARALLEL_LOOP(collapse=4)
